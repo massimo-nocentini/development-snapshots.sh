@@ -3,7 +3,7 @@ safe:
 	echo "Safe rule to avoid unwanted compilations"
 
 system:
-	sudo apt install build-essential gitg libgit2-dev rlwrap
+	sudo apt install build-essential gitg libgit2-dev rlwrap cmake
 
 google-chrome:
 	mkdir -p snapshots/google-chrome
@@ -46,5 +46,16 @@ lua:
 		&& patch src/Makefile < ../../../lua-src-Makefile.patch \
 		&& patch Makefile < ../../../lua-Makefile.patch \
 		&& make "MYCFLAGS=-fPIC" "R=5.4.6" linux-readline && sudo make install
+
+today := `date +'%Y%m%d'`
+
+texlive:
+	mkdir -p snapshots/texlive \
+		&& cd snapshots/texlive \
+		&& wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
+		&& tar xfz install-tl-unx.tar.gz \
+		&& cd install-tl-$(today) \
+		&& sudo ./install-tl
+		&& cd .. && rm -rf install-tl-$(today)
 
 all: system google-chrome python vim code lua
