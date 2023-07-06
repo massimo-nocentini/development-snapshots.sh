@@ -5,7 +5,8 @@ safe:
 system:
 	sudo apt install build-essential gitg libgit2-dev rlwrap cmake \
 		libpango-1.0-0 libpangocairo-1.0-0 libpango1.0-dev fontconfig libfontconfig-dev libglib2.0-0 \
-		synaptic libfuse2 libstdc++-13-dev gcc-13-x86-64-linux-gnux32 flatpak piper
+		synaptic libfuse2 libstdc++-13-dev gcc-13-x86-64-linux-gnux32 flatpak piper \
+		curl libcurl4 libcurl4-gnutls-dev
 	# now add a source for flatpak
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
@@ -62,8 +63,18 @@ texlive:
 		&& sudo ./install-tl \
 		&& cd .. && rm -rf install-tl-$(today)
 
+pgsql:
+	sudo apt build-dep postgresql-15
+	mkdir -p snapshots/pgsql \
+		&& cd snapshots/pgsql \
+		&& wget https://ftp.postgresql.org/pub/source/v15.3/postgresql-15.3.tar.gz \
+		&& tar xfz postgresql-15.3.tar.gz \
+		&& cd postgresql-15.3 \
+		&& ./configure && make && sudo make install \
+		&& cd .. && rm -rf postgresql-15.3
+
 mypaint:
 	flatpak install flathub org.mypaint.MyPaint
 	# run with: flatpak run org.mypaint.MyPaint
 
-all: system google-chrome python vim code lua texlive mypaint
+all: system google-chrome python vim code lua texlive mypaint pgsql
