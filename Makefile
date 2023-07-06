@@ -55,7 +55,7 @@ texlive:
 		&& wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
 		&& tar xfz install-tl-unx.tar.gz \
 		&& cd install-tl-$(today) \
-		&& sudo ./install-tl
+		&& sudo ./install-tl \
 		&& cd .. && rm -rf install-tl-$(today)
 
 all: system google-chrome python vim code lua
