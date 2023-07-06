@@ -11,8 +11,21 @@ google-chrome:
 		&& wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
 		&& sudo dpkg -i google-chrome-stable_current_amd64.deb 
 
+code:
+	mkdir -p snapshots/code
+	cd snapshots/code \
+		&& wget https://az764295.vo.msecnd.net/stable/695af097c7bd098fbf017ce3ac85e09bbc5dda06/code_1.79.2-1686734195_amd64.deb \
+		&& sudo dpkg -i code_1.79.2-1686734195_amd64.deb
+
 python:
 	sudo apt build-dep python3.11
+	mkdir -p snapshots/python \
+		&& cd snapshots/python \
+		&& wget https://www.python.org/ftp/python/3.11.4/Python-3.11.4.tar.xz \
+		&& tar xfJ Python-3.11.4.tar.xz \
+		&& cd Python-3.11.4 \
+		&& ./configure --enable-optimizations --with-ensurepip && make -j4 && sudo make install
+		#&& cd .. && sudo rm -rf Python-3.11.4
 
 vim:
 	mkdir -p snapshots/vim \
@@ -23,4 +36,4 @@ vim:
 		&& ./configure && make && sudo make install \
 		&& cd .. && rm -rf vim-9.0.1672 
 
-all: system google-chrome python
+all: system google-chrome python vim code
