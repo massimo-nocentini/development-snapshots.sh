@@ -37,6 +37,7 @@ vim:
 		&& cd .. && rm -rf vim-9.0.1672 
 
 lua:
+	# From: https://blog.spreendigital.de/2020/05/24/how-to-compile-lua-5-4-0-for-linux-as-a-shared-library/
 	mkdir -p snapshots/lua \
 		&& cd snapshots/lua \
 		&& wget https://www.lua.org/ftp/lua-5.4.6.tar.gz \
