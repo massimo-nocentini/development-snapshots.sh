@@ -5,7 +5,8 @@ safe:
 system:
 	sudo apt install build-essential gitg libgit2-dev rlwrap cmake \
 		libpango-1.0-0 libpangocairo-1.0-0 libpango1.0-dev fontconfig libfontconfig-dev libglib2.0-0 \
-		synaptic libfuse2
+		synaptic libfuse2 libstdc++-13-dev gcc-13-x86-64-linux-gnux32 flatpak
+	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 google-chrome:
 	mkdir -p snapshots/google-chrome
@@ -60,4 +61,8 @@ texlive:
 		&& sudo ./install-tl \
 		&& cd .. && rm -rf install-tl-$(today)
 
-all: system google-chrome python vim code lua
+mypaint:
+	flatpak install flathub org.mypaint.MyPaint
+	# run with: flatpak run org.mypaint.MyPaint
+
+all: system google-chrome python vim code lua texlive mypaint
