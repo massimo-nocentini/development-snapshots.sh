@@ -77,4 +77,16 @@ mypaint:
 	flatpak install flathub org.mypaint.MyPaint
 	# run with: flatpak run org.mypaint.MyPaint
 
-all: system google-chrome python vim code lua texlive mypaint pgsql
+wc-word2vec:
+	mkdir -p working-copies/ces \
+		&& cd working-copies/ces \
+		&& rm -rf word2vec \
+		&& git clone git@github.com:massimo-nocentini/word2vec.git \
+		&& cd word2vec \
+		&& make
+
+working-copies: wc-word2vec
+
+snapshots: google-chrome python vim code lua texlive mypaint pgsql 
+
+all: system snapshots working-copies
