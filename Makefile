@@ -4,7 +4,8 @@ safe:
 
 system:
 	sudo apt install build-essential gitg libgit2-dev rlwrap cmake \
-		libpango-1.0-0 libpangocairo-1.0-0 fontconfig libfontconfig-dev libglib2.0-0
+		libpango-1.0-0 libpangocairo-1.0-0 libpango1.0-dev fontconfig libfontconfig-dev libglib2.0-0 \
+		synaptic libfuse2
 
 google-chrome:
 	mkdir -p snapshots/google-chrome
