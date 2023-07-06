@@ -3,7 +3,7 @@ safe:
 	echo "Safe rule to avoid unwanted compilations"
 
 system:
-	sudo apt install build-essential gitg libgit2-dev 
+	sudo apt install build-essential gitg libgit2-dev rlwrap
 
 google-chrome:
 	mkdir -p snapshots/google-chrome
@@ -36,4 +36,14 @@ vim:
 		&& ./configure && make && sudo make install \
 		&& cd .. && rm -rf vim-9.0.1672 
 
-all: system google-chrome python vim code
+lua:
+	mkdir -p snapshots/lua \
+		&& cd snapshots/lua \
+		&& wget https://www.lua.org/ftp/lua-5.4.6.tar.gz \
+		&& tar xfz lua-5.4.6.tar.gz \
+		&& cd lua-5.4.6 \
+		&& patch src/Makefile < ../../../lua-src-Makefile.patch \
+		&& patch Makefile < ../../../lua-Makefile.patch \
+		&& make "MYCFLAGS=-fPIC" "R=5.4.6" linux-readline && sudo make install
+
+all: system google-chrome python vim code lua

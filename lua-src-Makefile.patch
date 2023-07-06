@@ -1,0 +1,10 @@
+--- snapshots/lua/lua-5.4.6/src/Makefile	2023-02-03 11:43:14.000000000 +0100
++++ lua-src-Makefile	2023-07-06 12:26:38.630954398 +0200
+@@ -59,6 +59,7 @@
+ $(LUA_A): $(BASE_O)
+ 	$(AR) $@ $(BASE_O)
+ 	$(RANLIB) $@
++	$(CC) -shared -ldl -Wl,-soname,liblua$R.so -o liblua$R.so $? -lm $(MYLDFLAGS)
+ 
+ $(LUA_T): $(LUA_O) $(LUA_A)
+ 	$(CC) -o $@ $(LDFLAGS) $(LUA_O) $(LUA_A) $(LIBS)
