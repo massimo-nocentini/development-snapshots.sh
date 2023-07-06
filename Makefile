@@ -5,7 +5,8 @@ safe:
 system:
 	sudo apt install build-essential gitg libgit2-dev rlwrap cmake \
 		libpango-1.0-0 libpangocairo-1.0-0 libpango1.0-dev fontconfig libfontconfig-dev libglib2.0-0 \
-		synaptic libfuse2 libstdc++-13-dev gcc-13-x86-64-linux-gnux32 flatpak
+		synaptic libfuse2 libstdc++-13-dev gcc-13-x86-64-linux-gnux32 flatpak piper
+	# now add a source for flatpak
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 google-chrome:
