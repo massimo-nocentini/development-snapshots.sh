@@ -127,9 +127,18 @@ wc-timsort.c:
 		&& cd timsort.c/src \
 		&& make linux && sudo make install
 
+wc-fastText:
+	mkdir -p working-copies/ces \
+		&& cd working-copies/ces \
+		&& rm -rf fastText \
+		&& git clone https://github.com/facebookresearch/fastText.git \
+		&& cd fastText \
+		&& mkdir build && cd build && cmake .. \
+		&& make && sudo make install
+
 ######################################################################################################
 
-working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c
+working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText
 
 snapshots: google-chrome python vim code lua texlive mypaint pgsql 
 
