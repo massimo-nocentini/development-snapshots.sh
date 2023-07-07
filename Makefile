@@ -6,7 +6,7 @@ system:
 	sudo apt install build-essential gitg libgit2-dev rlwrap cmake \
 		libpango-1.0-0 libpangocairo-1.0-0 libpango1.0-dev fontconfig libfontconfig-dev libglib2.0-0 \
 		synaptic libfuse2 libstdc++-13-dev gcc-13-x86-64-linux-gnux32 flatpak piper \
-		curl libcurl4 libcurl4-gnutls-dev
+		curl libcurl4 libcurl4-gnutls-dev filezilla
 	# now add a source for flatpak
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
@@ -140,6 +140,6 @@ wc-fastText:
 
 working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText
 
-snapshots: google-chrome python vim code lua texlive mypaint pgsql 
+snapshots: google-chrome python vim code lua texlive mypaint pgsql discord
 
 all: system snapshots working-copies
