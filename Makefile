@@ -91,6 +91,12 @@ sgb:
 		&& tar xfz sgb.tar.gz \
 		&& make tests && sudo make install && sudo make installdemos
 
+wolfram:
+	mkdir -p snapshots/wolfram \
+		&& cd snapshots/wolfram \
+		&& wget https://files.wolframcdn.com/WolframEngine/13.2.0.0/WolframEngine_13.2.0_LINUX.sh?4ae6ee529e4e0d5967853f9964b23dfeb8566c7eb008cacb70942a0539eb0f443674ea52824280a8fdea45eecfd5be719166aa69f09534f4d6a478d46be7f4fb7ce1e8c37308691d4da6bca57983a95bc79df26113f95b23c00f82dfb676f352c22230a981 \
+		&& sudo bash WolframEngine_13.2.0_LINUX.sh?4ae6ee529e4e0d5967853f9964b23dfeb8566c7eb008cacb70942a0539eb0f443674ea52824280a8fdea45eecfd5be719166aa69f09534f4d6a478d46be7f4fb7ce1e8c37308691d4da6bca57983a95bc79df26113f95b23c00f82dfb676f352c22230a981
+
 ######################################################################################################
 # Working copies
 ######################################################################################################
@@ -240,13 +246,32 @@ wc-stream.lua:
 		&& cd stream.lua/src \
 		&& sudo make install && make test 
 
+wc-pgsql.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf pgsql.lua \
+		&& git clone git@github.com:massimo-nocentini/pgsql.lua.git \
+		&& cd pgsql.lua/src \
+		&& make && sudo make install 
+
+wc-wolfram.lua:
+	sudo cp /usr/local/Wolfram/WolframEngine/13.2/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/libWSTP64i4.so /usr/local/lib
+	sudo chmod 755 /usr/local/lib/libWSTP64i4.so
+	sudo ldconfig
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf wolfram.lua \
+		&& git clone git@github.com:massimo-nocentini/wolfram.lua.git \
+		&& cd wolfram.lua/src \
+		&& make && sudo make install 
+
 ######################################################################################################
 
-working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua
+working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua wc-pgsql.lua wc-wolfram.lua
 
 working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText \
 	working-copies-lua
 
-snapshots: google-chrome python vim code lua texlive mypaint pgsql discord
+snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb
 
 all: system snapshots working-copies
