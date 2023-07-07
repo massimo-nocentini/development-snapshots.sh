@@ -92,6 +92,8 @@ sgb:
 		&& make tests && sudo make install && sudo make installdemos
 
 ######################################################################################################
+# Working copies
+######################################################################################################
 
 wc-word2vec:
 	mkdir -p working-copies/ces \
@@ -144,9 +146,35 @@ wc-fastText:
 		&& mkdir build && cd build && cmake .. \
 		&& make && sudo make install
 
+wc-luaunit:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf luaunit \
+		&& git clone git@github.com:bluebird75/luaunit.git \
+		&& sudo cp luaunit/luaunit.lua /usr/local/share/lua/5.4/
+
+wc-category.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf category.lua \
+		&& git clone git@github.com:massimo-nocentini/category.lua.git \
+		&& cd category.lua/src \
+		&& sudo make install && make test
+
+wc-operator.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf operator.lua \
+		&& git clone git@github.com:massimo-nocentini/operator.lua.git  \
+		&& cd operator.lua/src \
+		&& sudo make install
+
 ######################################################################################################
 
-working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText
+working-copies-lua: wc-luaunit wc-category.lua wc-operator.lua
+
+working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText \
+	working-copies-lua
 
 snapshots: google-chrome python vim code lua texlive mypaint pgsql discord
 
