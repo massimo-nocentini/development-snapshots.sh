@@ -6,7 +6,7 @@ system:
 	sudo apt install build-essential gitg libgit2-dev rlwrap cmake \
 		libpango-1.0-0 libpangocairo-1.0-0 libpango1.0-dev fontconfig libfontconfig-dev libglib2.0-0 \
 		synaptic libfuse2 libstdc++-13-dev gcc-13-x86-64-linux-gnux32 flatpak piper \
-		curl libcurl4 libcurl4-gnutls-dev filezilla
+		curl libcurl4 libcurl4-gnutls-dev filezilla gedit
 	# now add a source for flatpak
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
@@ -153,6 +153,13 @@ wc-luaunit:
 		&& git clone git@github.com:bluebird75/luaunit.git \
 		&& sudo cp luaunit/luaunit.lua /usr/local/share/lua/5.4/
 
+wc-json:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf json.lua \
+		&& git clone git@github.com:rxi/json.lua.git \
+		&& sudo cp json.lua/json.lua /usr/local/share/lua/5.4/
+
 wc-category.lua:
 	mkdir -p working-copies/luas \
 		&& cd working-copies/luas \
@@ -169,9 +176,73 @@ wc-operator.lua:
 		&& cd operator.lua/src \
 		&& sudo make install
 
+wc-libc.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf libc.lua \
+		&& git clone git@github.com:massimo-nocentini/libc.lua.git \
+		&& cd libc.lua/src \
+		&& make linux && sudo make install && make test
+
+wc-curl.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf curl.lua \
+		&& git clone git@github.com:massimo-nocentini/curl.lua.git \
+		&& cd curl.lua/src \
+		&& make linux && sudo make install-linux
+
+wc-cairo.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf cairo.lua \
+		&& git clone git@github.com:massimo-nocentini/cairo.lua.git \
+		&& cd cairo.lua/src \
+		&& make && sudo make install
+
+wc-lua.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf lua.lua \
+		&& git clone git@github.com:massimo-nocentini/lua.lua.git \
+		&& cd lua.lua/src \
+		&& make && sudo make install && make test
+
+wc-timsort.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf timsort.lua \
+		&& git clone git@github.com:massimo-nocentini/timsort.lua.git \
+		&& cd timsort.lua/src \
+		&& make && sudo make install && make test
+
+wc-non-layered-tidy-trees.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf non-layered-tidy-trees.lua \
+		&& git clone git@github.com:massimo-nocentini/non-layered-tidy-trees.lua.git \
+		&& cd non-layered-tidy-trees.lua/src \
+		&& make && sudo make install 
+
+wc-tree-sitter.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf tree-sitter.lua \
+		&& git clone --recurse-submodules git@github.com:massimo-nocentini/tree-sitter.lua.git \
+		&& cd tree-sitter.lua/src \
+		&& make linux && sudo make install-linux
+
+wc-stream.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf stream.lua \
+		&& git clone git@github.com:massimo-nocentini/stream.lua.git \
+		&& cd stream.lua/src \
+		&& sudo make install && make test 
+
 ######################################################################################################
 
-working-copies-lua: wc-luaunit wc-category.lua wc-operator.lua
+working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua
 
 working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText \
 	working-copies-lua
