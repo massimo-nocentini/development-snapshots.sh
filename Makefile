@@ -83,6 +83,14 @@ discord:
 		&& wget https://dl.discordapp.net/apps/linux/0.0.27/discord-0.0.27.tar.gz \
 		&& tar xfz discord-0.0.27.tar.gz
 
+sgb:
+	# See also https://www-cs-faculty.stanford.edu/~knuth/sgb.html
+	mkdir -p snapshots/sgb \
+		&& cd snapshots/sgb \
+		&& wget ftp://ftp.cs.stanford.edu/pub/sgb/sgb.tar.gz \
+		&& tar xfz sgb.tar.gz \
+		&& make tests && sudo make install && sudo make installdemos
+
 ######################################################################################################
 
 wc-word2vec:
