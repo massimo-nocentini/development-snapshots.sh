@@ -256,8 +256,8 @@ wc-pgsql.lua:
 		&& make && sudo make install 
 
 wc-wolfram.lua:
-	sudo cp /usr/local/Wolfram/WolframEngine/13.2/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/libWSTP64i4.so /usr/local/lib
-	sudo chmod 755 /usr/local/lib/libWSTP64i4.so
+	sudo rm -rf /usr/local/lib/libWSTP64i4.so
+	sudo ln -s /usr/local/Wolfram/WolframEngine/13.2/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/libWSTP64i4.so /usr/local/lib/libWSTP64i4.so
 	sudo ldconfig
 	mkdir -p working-copies/luas \
 		&& cd working-copies/luas \
