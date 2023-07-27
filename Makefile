@@ -98,6 +98,12 @@ wolfram:
 		&& wget https://files.wolframcdn.com/WolframEngine/13.2.0.0/WolframEngine_13.2.0_LINUX.sh?4ae6ee529e4e0d5967853f9964b23dfeb8566c7eb008cacb70942a0539eb0f443674ea52824280a8fdea45eecfd5be719166aa69f09534f4d6a478d46be7f4fb7ce1e8c37308691d4da6bca57983a95bc79df26113f95b23c00f82dfb676f352c22230a981 \
 		&& sudo bash WolframEngine_13.2.0_LINUX.sh?4ae6ee529e4e0d5967853f9964b23dfeb8566c7eb008cacb70942a0539eb0f443674ea52824280a8fdea45eecfd5be719166aa69f09534f4d6a478d46be7f4fb7ce1e8c37308691d4da6bca57983a95bc79df26113f95b23c00f82dfb676f352c22230a981
 
+tor:
+	mkdir -p snapshots/tor \
+		&& cd snapshots/tor \
+		&& wget https://www.torproject.org/dist/torbrowser/12.5.1/tor-browser-linux64-12.5.1_ALL.tar.xz \
+		&& tar xfJ tor-browser-linux64-12.5.1_ALL.tar.xz
+
 ######################################################################################################
 # Working copies
 ######################################################################################################
@@ -273,6 +279,6 @@ working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.l
 working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText \
 	working-copies-lua
 
-snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb
+snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor
 
 all: system snapshots working-copies
