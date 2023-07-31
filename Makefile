@@ -3,12 +3,15 @@ safe:
 	echo "Safe rule to avoid unwanted compilations"
 
 system:
+	sudo apt update
+	sudo apt upgrade
 	sudo apt install build-essential gitg libgit2-dev rlwrap cmake \
 		libpango-1.0-0 libpangocairo-1.0-0 libpango1.0-dev fontconfig libfontconfig-dev libglib2.0-0 \
 		synaptic libfuse2 libstdc++-13-dev gcc-13-x86-64-linux-gnux32 flatpak piper \
 		curl libcurl4 libcurl4-gnutls-dev filezilla gedit libpoppler-dev libpoppler-glib-dev gnome-tweaks \
-		libgit2-1.5 libcrypto++8 libgit2-glib-1.0-dev
-	# now add a source for flatpak
+		libgit2-1.5 libcrypto++8 libgit2-glib-1.0-dev librsvg2-dev
+
+flatpak:
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 google-chrome:
@@ -95,8 +98,12 @@ sgb:
 wolfram:
 	mkdir -p snapshots/wolfram \
 		&& cd snapshots/wolfram \
-		&& wget https://files.wolframcdn.com/WolframEngine/13.2.0.0/WolframEngine_13.2.0_LINUX.sh?4ae6ee529e4e0d5967853f9964b23dfeb8566c7eb008cacb70942a0539eb0f443674ea52824280a8fdea45eecfd5be719166aa69f09534f4d6a478d46be7f4fb7ce1e8c37308691d4da6bca57983a95bc79df26113f95b23c00f82dfb676f352c22230a981 \
-		&& sudo bash WolframEngine_13.2.0_LINUX.sh?4ae6ee529e4e0d5967853f9964b23dfeb8566c7eb008cacb70942a0539eb0f443674ea52824280a8fdea45eecfd5be719166aa69f09534f4d6a478d46be7f4fb7ce1e8c37308691d4da6bca57983a95bc79df26113f95b23c00f82dfb676f352c22230a981
+		&& wget https://files.wolframcdn.com/WolframEngine/13.3.0.0/WolframEngine_13.3.0_LINUX.sh?4ae6ee529e4e0d5967853f9964b23dfeb8566c7eb008cacb70942b0d3beb0b48c271d2e5103bbc8690861f9e039c438b5db98d1a88b401b7fa624c40216e9804dbc221df024b70096b601d3d38b35c8917a1425d6ec28726c8f4bc875fc3d0f5af3feb990d \
+		&& sudo bash WolframEngine_13.3.0_LINUX.sh?4ae6ee529e4e0d5967853f9964b23dfeb8566c7eb008cacb70942b0d3beb0b48c271d2e5103bbc8690861f9e039c438b5db98d1a88b401b7fa624c40216e9804dbc221df024b70096b601d3d38b35c8917a1425d6ec28726c8f4bc875fc3d0f5af3feb990d
+	sudo rm -rf /usr/local/lib/libWSTP64i4.so
+	sudo ln -s /usr/local/Wolfram/WolframEngine/13.3/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/libWSTP64i4.so /usr/local/lib/libWSTP64i4.so
+	sudo ln -s /usr/local/Wolfram/WolframEngine/13.3/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/wstp.h /usr/local/include/wstp.h
+	sudo ldconfig
 
 tor:
 	mkdir -p snapshots/tor \
@@ -126,13 +133,16 @@ wc-non-layered-tidy-trees.c:
 
 #&& cd pharo-vm && git checkout --track origin/pharo-12 && cd .. 
 wc-pharo-vm:
-	mkdir -p working-copies/ces \
-		&& cd working-copies/ces \
+	mkdir -p working-copies/ces 
+	cd working-copies/ces \
 		&& rm -rf pharo-vm pharo-vm-build build \
 		&& git clone git@github.com:pharo-project/pharo-vm.git \
 		&& cmake -S pharo-vm/ -B pharo-vm-build -DPHARO_DEPENDENCIES_PREFER_DOWNLOAD_BINARIES=TRUE \
-		&& cmake --build pharo-vm-build/ --target install \
-		&& rm -rf build && cd pharo-vm-build/build/dist/lib && rm -rf libcairo.so* libfontconfig.so* libharfbuzz.so* libssh2.so*
+		&& cmake --build pharo-vm-build/ --target install
+	rm -rf snapshots/pharo-vm
+	cp -r working-copies/ces/pharo-vm-build/build/dist/ snapshots/pharo-vm
+	cd snapshots/pharo-vm/lib && rm -rf libcairo.so* libfontconfig.so* libharfbuzz.so* libssh2.so*
+	rm -rf working-copies/ces/build
 
 wc-tree-sitter:
 	mkdir -p working-copies/ces \
@@ -262,9 +272,6 @@ wc-pgsql.lua:
 		&& make && sudo make install 
 
 wc-wolfram.lua:
-	sudo rm -rf /usr/local/lib/libWSTP64i4.so
-	sudo ln -s /usr/local/Wolfram/WolframEngine/13.2/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/libWSTP64i4.so /usr/local/lib/libWSTP64i4.so
-	sudo ldconfig
 	mkdir -p working-copies/luas \
 		&& cd working-copies/luas \
 		&& rm -rf wolfram.lua \
@@ -281,4 +288,4 @@ working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitt
 
 snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor
 
-all: system snapshots working-copies
+all: system flatpak snapshots working-copies
