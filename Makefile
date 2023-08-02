@@ -142,7 +142,7 @@ wc-pharo-vm:
 	rm -rf snapshots/pharo-vm
 	cp -r working-copies/ces/pharo-vm-build/build/dist/ snapshots/pharo-vm
 	cd snapshots/pharo-vm/lib && rm -rf libcairo.so* libfontconfig.so* libharfbuzz.so* libssh2.so*
-	rm -rf working-copies/ces/build
+	rm -rf working-copies/ces/build working-copies/ces/pharo-vm-build
 
 wc-tree-sitter:
 	mkdir -p working-copies/ces \
