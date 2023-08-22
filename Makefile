@@ -1,4 +1,8 @@
 
+# Change the following line in /etc/default/grub:
+# GRUB_CMDLINE_LINUX_DEFAULT="quiet video=DSI-1:panel_orientation=right_side_up"
+# to enable correct coordinates for the pen too. Then, sudo update-grub.
+
 safe:
 	echo "Safe rule to avoid unwanted compilations"
 
