@@ -13,7 +13,7 @@ system:
 		libpango-1.0-0 libpangocairo-1.0-0 libpango1.0-dev fontconfig libfontconfig-dev libglib2.0-0 \
 		synaptic libfuse2 libstdc++-13-dev gcc-13-x86-64-linux-gnux32 flatpak piper \
 		curl libcurl4 libcurl4-gnutls-dev filezilla gedit libpoppler-dev libpoppler-glib-dev gnome-tweaks \
-		libgit2-1.5 libcrypto++8 libgit2-glib-1.0-dev librsvg2-dev libgtk-4-dev
+		libgit2-1.5 libcrypto++8 libgit2-glib-1.0-dev librsvg2-dev libgtk-4-dev gnome-boxes
 
 flatpak:
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -73,13 +73,13 @@ texlive:
 
 pgsql:
 	sudo apt build-dep postgresql-15
-	mkdir -p snapshots/pgsql \
-		&& cd snapshots/pgsql \
-		&& wget https://ftp.postgresql.org/pub/source/v15.3/postgresql-15.3.tar.gz \
-		&& tar xfz postgresql-15.3.tar.gz \
-		&& cd postgresql-15.3 \
+	mkdir -p snapshots/pgsql
+	cd snapshots/pgsql \
+		&& wget https://ftp.postgresql.org/pub/source/v16.0/postgresql-16.0.tar.gz \
+		&& tar xfz postgresql-16.0.tar.gz \
+		&& cd postgresql-16.0 \
 		&& ./configure && make && sudo make install \
-		&& cd .. && rm -rf postgresql-15.3
+		&& cd .. && rm -rf postgresql-16.0
 
 mypaint:
 	flatpak install flathub org.mypaint.MyPaint
