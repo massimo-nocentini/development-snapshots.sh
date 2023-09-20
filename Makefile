@@ -147,6 +147,12 @@ virtualbox-deb:
 		&& wget https://download.virtualbox.org/virtualbox/7.0.10/Oracle_VM_VirtualBox_Extension_Pack-7.0.10.vbox-extpack \
 		&& sudo apt install ./virtualbox-7.0_7.0.10-158379~Ubuntu~jammy_amd64.deb
 
+rustdesk:
+	mkdir -p snapshots/rustdesk \
+		&& cd snapshots/rustdesk \
+		&& wget https://github.com/rustdesk/rustdesk/releases/download/1.2.2/rustdesk-1.2.2-x86_64.deb \
+		&& sudo apt install ./rustdesk-1.2.2-x86_64.deb
+
 ######################################################################################################
 # Working copies
 ######################################################################################################
@@ -322,6 +328,6 @@ working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.l
 working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText \
 	working-copies-lua
 
-snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor java eclipse-c eclipse-java virtualbox-deb
+snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor java eclipse-c eclipse-java virtualbox-deb rustdesk
 
 all: system flatpak snapshots working-copies
