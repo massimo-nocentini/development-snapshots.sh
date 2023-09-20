@@ -115,12 +115,37 @@ tor:
 		&& wget https://www.torproject.org/dist/torbrowser/12.5.1/tor-browser-linux64-12.5.1_ALL.tar.xz \
 		&& tar xfJ tor-browser-linux64-12.5.1_ALL.tar.xz
 
+java:
+	mkdir -p snapshots/java \
+		&& cd snapshots/java \
+		&& wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.tar.gz \
+		&& tar xfz jdk-21_linux-x64_bin.tar.gz
+
+eclipse-c:
+	mkdir -p snapshots/eclipse-c \
+		&& cd snapshots/eclipse-c \
+		&& wget https://ftp.fau.de/eclipse/technology/epp/downloads/release/2023-09/R/eclipse-cpp-2023-09-R-linux-gtk-x86_64.tar.gz \
+		&& tar xfz eclipse-cpp-2023-09-R-linux-gtk-x86_64.tar.gz
+
+eclipse-java:
+	mkdir -p snapshots/eclipse-java \
+		&& cd snapshots/eclipse-java \
+		&& wget https://ftp.fau.de/eclipse/technology/epp/downloads/release/2023-09/R/eclipse-java-2023-09-R-linux-gtk-x86_64.tar.gz \
+		&& tar xfz eclipse-java-2023-09-R-linux-gtk-x86_64.tar.gz
+
 virtualbox:
 	mkdir -p snapshots/virtualbox \
 		&& cd snapshots/virtualbox \
 		&& wget https://download.virtualbox.org/virtualbox/7.0.10/VirtualBox-7.0.10-158379-Linux_amd64.run \
 		&& chmod +x VirtualBox-7.0.10-158379-Linux_amd64.run \
 		&& sudo ./VirtualBox-7.0.10-158379-Linux_amd64.run
+
+virtualbox-deb:
+	mkdir -p snapshots/virtualbox \
+		&& cd snapshots/virtualbox \
+		&& wget https://download.virtualbox.org/virtualbox/7.0.10/virtualbox-7.0_7.0.10-158379~Ubuntu~jammy_amd64.deb \
+		&& wget https://download.virtualbox.org/virtualbox/7.0.10/Oracle_VM_VirtualBox_Extension_Pack-7.0.10.vbox-extpack \
+		&& sudo apt install ./virtualbox-7.0_7.0.10-158379~Ubuntu~jammy_amd64.deb
 
 ######################################################################################################
 # Working copies
@@ -297,6 +322,6 @@ working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.l
 working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText \
 	working-copies-lua
 
-snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor virtualbox
+snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor java eclipse-c eclipse-java virtualbox-deb
 
 all: system flatpak snapshots working-copies
