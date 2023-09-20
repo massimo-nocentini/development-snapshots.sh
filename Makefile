@@ -115,6 +115,13 @@ tor:
 		&& wget https://www.torproject.org/dist/torbrowser/12.5.1/tor-browser-linux64-12.5.1_ALL.tar.xz \
 		&& tar xfJ tor-browser-linux64-12.5.1_ALL.tar.xz
 
+virtualbox:
+	mkdir -p snapshots/virtualbox \
+		&& cd snapshots/virtualbox \
+		&& wget https://download.virtualbox.org/virtualbox/7.0.10/VirtualBox-7.0.10-158379-Linux_amd64.run \
+		&& chmod +x VirtualBox-7.0.10-158379-Linux_amd64.run \
+		&& sudo ./VirtualBox-7.0.10-158379-Linux_amd64.run
+
 ######################################################################################################
 # Working copies
 ######################################################################################################
@@ -290,6 +297,6 @@ working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.l
 working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText \
 	working-copies-lua
 
-snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor
+snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor virtualbox
 
 all: system flatpak snapshots working-copies
