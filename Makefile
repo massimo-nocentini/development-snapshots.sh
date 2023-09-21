@@ -24,6 +24,12 @@ google-chrome:
 		&& wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
 		&& sudo dpkg -i google-chrome-stable_current_amd64.deb 
 
+firefox:
+	mkdir -p snapshots/firefox
+	cd snapshots/firefox \
+		&& wget https://download-installer.cdn.mozilla.net/pub/firefox/releases/117.0.1/linux-x86_64/en-US/firefox-117.0.1.tar.bz2 \
+		&& tar xfj firefox-117.0.1.tar.bz2
+
 code:
 	mkdir -p snapshots/code
 	cd snapshots/code \
@@ -88,8 +94,8 @@ mypaint:
 discord:
 	mkdir -p snapshots/discord \
 		&& cd snapshots/discord \
-		&& wget https://dl.discordapp.net/apps/linux/0.0.29/discord-0.0.29.deb \
-		&& sudo dpkg -i discord-0.0.29.deb
+		&& wget https://dl.discordapp.net/apps/linux/0.0.30/discord-0.0.30.deb \
+		&& sudo dpkg -i discord-0.0.30.deb
 
 sgb:
 	# See also https://www-cs-faculty.stanford.edu/~knuth/sgb.html
