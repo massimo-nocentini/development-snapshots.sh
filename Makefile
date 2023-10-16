@@ -94,8 +94,8 @@ mypaint:
 discord:
 	mkdir -p snapshots/discord \
 		&& cd snapshots/discord \
-		&& wget https://dl.discordapp.net/apps/linux/0.0.30/discord-0.0.30.deb \
-		&& sudo dpkg -i discord-0.0.30.deb
+		&& wget https://dl.discordapp.net/apps/linux/0.0.31/discord-0.0.31.deb \
+		&& sudo dpkg -i discord-0.0.31.deb
 
 sgb:
 	# See also https://www-cs-faculty.stanford.edu/~knuth/sgb.html
@@ -184,7 +184,7 @@ wc-pharo-vm:
 	mkdir -p working-copies/ces 
 	cd working-copies/ces \
 		&& rm -rf pharo-vm pharo-vm-build build \
-		&& git clone git@github.com:pharo-project/pharo-vm.git \
+		&& git clone git@github.com:massimo-nocentini/pharo-vm.git \
 		&& cmake -S pharo-vm/ -B pharo-vm-build -DPHARO_DEPENDENCIES_PREFER_DOWNLOAD_BINARIES=TRUE \
 		&& cmake --build pharo-vm-build/ --target install
 	rm -rf snapshots/pharo-vm
@@ -327,12 +327,27 @@ wc-wolfram.lua:
 		&& cd wolfram.lua/src \
 		&& make && sudo make install 
 
+wc-datetimeformatter.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf datetimeformatter.lua \
+		&& git clone git@github.com:massimo-nocentini/datetimeformatter.lua.git \
+		&& cd datetimeformatter.lua/src \
+		&& make && sudo make install 
+	
+wc-datetimeformatter.c:
+	mkdir -p working-copies/ces \
+		&& cd working-copies/ces \
+		&& rm -rf datetimeformatter.c \
+		&& git clone git@github.com:massimo-nocentini/datetimeformatter.c.git \
+		&& cd datetimeformatter.c/src \
+		&& make && sudo make install 
+
 ######################################################################################################
 
-working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua wc-pgsql.lua wc-wolfram.lua
+working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua wc-pgsql.lua wc-wolfram.lua wc-datetimeformatter.lua
 
-working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText \
-	working-copies-lua
+working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText wc-datetimeformatter.c working-copies-lua
 
 snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor java eclipse-c eclipse-java virtualbox-deb rustdesk
 
