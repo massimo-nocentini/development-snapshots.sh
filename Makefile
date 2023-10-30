@@ -159,6 +159,13 @@ rustdesk:
 		&& wget https://github.com/rustdesk/rustdesk/releases/download/1.2.2/rustdesk-1.2.2-x86_64.deb \
 		&& sudo apt install ./rustdesk-1.2.2-x86_64.deb
 
+emacs:
+	sudo apt build-dep emacs
+	mkdir -p snapshots/emacs \
+		&& cd snapshots/emacs \
+		&& wget http://mirror.kumi.systems/gnu/emacs/emacs-29.1.tar.xz \
+		&& ./configure && make && sudo make install
+
 ######################################################################################################
 # Working copies
 ######################################################################################################
@@ -327,14 +334,6 @@ wc-wolfram.lua:
 		&& cd wolfram.lua/src \
 		&& make && sudo make install 
 
-wc-datetimeformatter.lua:
-	mkdir -p working-copies/luas \
-		&& cd working-copies/luas \
-		&& rm -rf datetimeformatter.lua \
-		&& git clone git@github.com:massimo-nocentini/datetimeformatter.lua.git \
-		&& cd datetimeformatter.lua/src \
-		&& make && sudo make install 
-	
 wc-datetimeformatter.c:
 	mkdir -p working-copies/ces \
 		&& cd working-copies/ces \
@@ -343,9 +342,24 @@ wc-datetimeformatter.c:
 		&& cd datetimeformatter.c/src \
 		&& make && sudo make install 
 
+wc-datetimeformatter.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf datetimeformatter.lua \
+		&& git clone git@github.com:massimo-nocentini/datetimeformatter.lua.git \
+		&& cd datetimeformatter.lua/src \
+		&& make && sudo make install 
+
+wc-exactcover.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf exactcover.lua \
+		&& git clone git@github.com:massimo-nocentini/exactcover.lua.git
+		#&& cd exactcover.lua/src && make && sudo make install 
+
 ######################################################################################################
 
-working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua wc-pgsql.lua wc-wolfram.lua wc-datetimeformatter.lua
+working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua wc-pgsql.lua wc-wolfram.lua wc-datetimeformatter.lua wc-exactcover.lua
 
 working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText wc-datetimeformatter.c working-copies-lua
 
