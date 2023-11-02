@@ -99,6 +99,9 @@ discord:
 
 sgb:
 	# See also https://www-cs-faculty.stanford.edu/~knuth/sgb.html
+	# Please remember to adjust the line:
+	# 	CFLAGS = -O3 -fPIC -I$(INCLUDEDIR) $(SYS)
+	# in the corresponding makefile to allow usage from shared libraries.
 	mkdir -p snapshots/sgb \
 		&& cd snapshots/sgb \
 		&& wget ftp://ftp.cs.stanford.edu/pub/sgb/sgb.tar.gz \
