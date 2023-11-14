@@ -94,8 +94,8 @@ mypaint:
 discord:
 	mkdir -p snapshots/discord \
 		&& cd snapshots/discord \
-		&& wget https://dl.discordapp.net/apps/linux/0.0.31/discord-0.0.31.deb \
-		&& sudo dpkg -i discord-0.0.31.deb
+		&& wget https://dl.discordapp.net/apps/linux/0.0.35/discord-0.0.35.deb \
+		&& sudo dpkg -i discord-0.0.35.deb
 
 sgb:
 	# See also https://www-cs-faculty.stanford.edu/~knuth/sgb.html
