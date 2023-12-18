@@ -173,6 +173,13 @@ emacs:
 # Working copies
 ######################################################################################################
 
+wc-transcriptions:
+	cd working-copies/ \
+	&& rm -rf transcriptions.tex \
+	&& git clone git@github.com:massimo-nocentini/transcriptions.tex.git \
+	&& cd transcriptions.tex \
+	&& make
+
 wc-word2vec:
 	mkdir -p working-copies/ces \
 		&& cd working-copies/ces \
@@ -360,11 +367,18 @@ wc-exactcover.lua:
 		&& git clone git@github.com:massimo-nocentini/exactcover.lua.git
 		#&& cd exactcover.lua/src && make && sudo make install 
 
+wc-unittest.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf unittest.lua \
+		&& git clone git@github.com:massimo-nocentini/unittest.lua.git
+		#&& cd exactcover.lua/src && make && sudo make install 
+
 ######################################################################################################
 
-working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua wc-pgsql.lua wc-wolfram.lua wc-datetimeformatter.lua wc-exactcover.lua
+working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua wc-pgsql.lua wc-wolfram.lua wc-datetimeformatter.lua wc-exactcover.lua wc-unittest.lua
 
-working-copies: wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText wc-datetimeformatter.c working-copies-lua
+working-copies: wc-transcriptions wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText wc-datetimeformatter.c working-copies-lua
 
 snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor java eclipse-c eclipse-java virtualbox-deb rustdesk
 
