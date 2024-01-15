@@ -46,6 +46,15 @@ python:
 		&& ./configure --enable-optimizations --with-ensurepip && make -j4 && sudo make install
 		#&& cd .. && sudo rm -rf Python-3.11.4
 
+ruby:
+	sudo apt build-dep ruby3.1
+	mkdir -p snapshots/ruby \
+		&& cd snapshots/ruby \
+		&& wget https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.2.tar.gz \
+		&& tar xfz ruby-3.2.2.tar.gz \
+		&& cd ruby-3.2.2 \
+		&& ./configure && make -j4 && sudo make install
+
 vim:
 	mkdir -p snapshots/vim \
 		&& cd snapshots/vim \
@@ -380,6 +389,6 @@ working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.l
 
 working-copies: wc-transcriptions wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText wc-datetimeformatter.c working-copies-lua
 
-snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor java eclipse-c eclipse-java virtualbox-deb rustdesk
+snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor java eclipse-c eclipse-java virtualbox-deb rustdesk ruby
 
 all: system flatpak snapshots working-copies
