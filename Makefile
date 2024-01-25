@@ -11,7 +11,7 @@ system:
 	sudo apt upgrade
 	sudo apt install build-essential gitg libgit2-dev rlwrap cmake \
 		libpango-1.0-0 libpangocairo-1.0-0 libpango1.0-dev fontconfig libfontconfig-dev libglib2.0-0 \
-		synaptic libfuse2 libstdc++-13-dev gcc-13-x86-64-linux-gnux32 flatpak piper \
+		synaptic libfuse2 libstdc++-12-dev gcc-12-x86-64-linux-gnux32 flatpak piper \
 		curl libcurl4 libcurl4-gnutls-dev filezilla gedit libpoppler-dev libpoppler-glib-dev gnome-tweaks \
 		libgit2-1.5 libcrypto++8 libgit2-glib-1.0-dev librsvg2-dev libgtk-4-dev gnome-boxes
 
@@ -40,9 +40,9 @@ python:
 	sudo apt build-dep python3.11
 	mkdir -p snapshots/python \
 		&& cd snapshots/python \
-		&& wget https://www.python.org/ftp/python/3.11.4/Python-3.11.4.tar.xz \
-		&& tar xfJ Python-3.11.4.tar.xz \
-		&& cd Python-3.11.4 \
+		&& wget https://www.python.org/ftp/python/3.12.1/Python-3.12.1.tar.xz \
+		&& tar xfJ Python-3.12.1.tar.xz \
+		&& cd Python-3.12.1 \
 		&& ./configure --enable-optimizations --with-ensurepip && make -j4 && sudo make install
 		#&& cd .. && sudo rm -rf Python-3.11.4
 
@@ -58,21 +58,19 @@ ruby:
 vim:
 	mkdir -p snapshots/vim \
 		&& cd snapshots/vim \
-		&& wget https://github.com/vim/vim/archive/refs/tags/v9.0.1672.tar.gz \
-		&& tar xfz v9.0.1672.tar.gz \
-		&& cd vim-9.0.1672 \
+		&& wget https://github.com/vim/vim/archive/refs/tags/v9.1.0044.tar.gz \
+		&& tar xfz v9.1.0044.tar.gz \
+		&& cd vim-9.1.0044 \
 		&& ./configure && make && sudo make install \
-		&& cd .. && rm -rf vim-9.0.1672 
+		&& cd .. && rm -rf vim-v9.1.0044 
 
 lua:
 	# From: https://blog.spreendigital.de/2020/05/24/how-to-compile-lua-5-4-0-for-linux-as-a-shared-library/
 	mkdir -p snapshots/lua \
 		&& cd snapshots/lua \
-		&& wget https://www.lua.org/ftp/lua-5.4.6.tar.gz \
+		&& rm -rf lua* && wget https://www.lua.org/ftp/lua-5.4.6.tar.gz \
 		&& tar xfz lua-5.4.6.tar.gz \
 		&& cd lua-5.4.6 \
-		&& patch src/Makefile < ../../../lua-src-Makefile.patch \
-		&& patch Makefile < ../../../lua-Makefile.patch \
 		&& make "MYCFLAGS=-fPIC" "R=5.4.6" linux-readline && sudo make install
 
 today := `date +'%Y%m%d'`
@@ -151,13 +149,7 @@ eclipse-java:
 		&& wget https://ftp.fau.de/eclipse/technology/epp/downloads/release/2023-09/R/eclipse-java-2023-09-R-linux-gtk-x86_64.tar.gz \
 		&& tar xfz eclipse-java-2023-09-R-linux-gtk-x86_64.tar.gz
 
-virtualbox:
-	mkdir -p snapshots/virtualbox \
-		&& cd snapshots/virtualbox \
-		&& wget https://download.virtualbox.org/virtualbox/7.0.10/VirtualBox-7.0.10-158379-Linux_amd64.run \
-		&& chmod +x VirtualBox-7.0.10-158379-Linux_amd64.run \
-		&& sudo ./VirtualBox-7.0.10-158379-Linux_amd64.run
-
+# it is better to use the debian package, the run installer (which should be more general) doesn't work on my deb box.
 virtualbox-deb:
 	mkdir -p snapshots/virtualbox \
 		&& cd snapshots/virtualbox \
@@ -383,9 +375,17 @@ wc-unittest.lua:
 		&& git clone git@github.com:massimo-nocentini/unittest.lua.git
 		#&& cd exactcover.lua/src && make && sudo make install 
 
+wc-concurrent.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf concurrent.lua \
+		&& git clone git@github.com:massimo-nocentini/concurrent.lua.git \
+		&& cd concurrent.lua/src \
+		&& make && sudo make install 
+
 ######################################################################################################
 
-working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua wc-pgsql.lua wc-wolfram.lua wc-datetimeformatter.lua wc-exactcover.lua wc-unittest.lua
+working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua wc-pgsql.lua wc-wolfram.lua wc-datetimeformatter.lua wc-exactcover.lua wc-unittest.lua wc-concurrent.lua
 
 working-copies: wc-transcriptions wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText wc-datetimeformatter.c working-copies-lua
 
