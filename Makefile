@@ -9,11 +9,12 @@ safe:
 system:
 	sudo apt update
 	sudo apt upgrade
-	sudo apt install build-essential gitg libgit2-dev rlwrap cmake \
+	sudo apt install linux-headers-amd64 build-essential gitg libgit2-dev rlwrap cmake \
 		libpango-1.0-0 libpangocairo-1.0-0 libpango1.0-dev fontconfig libfontconfig-dev libglib2.0-0 \
-		synaptic libfuse2 libstdc++-12-dev gcc-12-x86-64-linux-gnux32 flatpak piper \
+		synaptic libfuse2 libstdc++-13-dev gcc-13-x86-64-linux-gnux32 flatpak piper \
 		curl libcurl4 libcurl4-gnutls-dev filezilla gedit libpoppler-dev libpoppler-glib-dev gnome-tweaks \
-		libgit2-1.5 libcrypto++8 libgit2-glib-1.0-dev librsvg2-dev libgtk-4-dev gnome-boxes
+		libgit2-dev libcrypto++8 libgit2-glib-1.0-dev librsvg2-dev libgtk-4-dev gnome-boxes \
+		vim
 
 flatpak:
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -21,8 +22,9 @@ flatpak:
 google-chrome:
 	mkdir -p snapshots/google-chrome
 	cd snapshots/google-chrome \
+		&& rm -rf * \
 		&& wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-		&& sudo dpkg -i google-chrome-stable_current_amd64.deb 
+		&& sudo apt install ./google-chrome-stable_current_amd64.deb 
 
 firefox:
 	mkdir -p snapshots/firefox
@@ -33,11 +35,12 @@ firefox:
 code:
 	mkdir -p snapshots/code
 	cd snapshots/code \
+		&& rm -rf * \
 		&& wget https://az764295.vo.msecnd.net/stable/695af097c7bd098fbf017ce3ac85e09bbc5dda06/code_1.79.2-1686734195_amd64.deb \
-		&& sudo dpkg -i code_1.79.2-1686734195_amd64.deb
+		&& sudo apt install ./code_1.79.2-1686734195_amd64.deb
 
 python:
-	sudo apt build-dep python3.11
+	sudo apt build-dep python3.12
 	mkdir -p snapshots/python \
 		&& cd snapshots/python \
 		&& wget https://www.python.org/ftp/python/3.12.1/Python-3.12.1.tar.xz \
@@ -167,7 +170,9 @@ emacs:
 	sudo apt build-dep emacs
 	mkdir -p snapshots/emacs \
 		&& cd snapshots/emacs \
-		&& wget http://mirror.kumi.systems/gnu/emacs/emacs-29.1.tar.xz \
+		&& rm -rf *\
+		&& wget https://ftp.gnu.org/gnu/emacs/emacs-29.2.tar.xz \
+		&& tar xfJ emacs-29.2.tar.xz && cd emacs-29.2 \
 		&& ./configure && make && sudo make install
 
 ######################################################################################################
