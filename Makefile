@@ -9,12 +9,11 @@ safe:
 system:
 	sudo apt update
 	sudo apt upgrade
-	sudo apt install linux-headers-amd64 build-essential gitg libgit2-dev rlwrap cmake \
+	sudo apt install build-essential gitg libgit2-dev rlwrap cmake \
 		libpango-1.0-0 libpangocairo-1.0-0 libpango1.0-dev fontconfig libfontconfig-dev libglib2.0-0 \
 		synaptic libfuse2 libstdc++-13-dev gcc-13-x86-64-linux-gnux32 flatpak piper \
 		curl libcurl4 libcurl4-gnutls-dev filezilla gedit libpoppler-dev libpoppler-glib-dev gnome-tweaks \
-		libgit2-dev libcrypto++8 libgit2-glib-1.0-dev librsvg2-dev libgtk-4-dev gnome-boxes \
-		vim clang
+		libcrypto++8 libgit2-glib-1.0-dev librsvg2-dev libgtk-4-dev gnome-boxes vim clang
 
 flatpak:
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -66,6 +65,16 @@ vim:
 		&& cd vim-9.1.0044 \
 		&& ./configure && make && sudo make install \
 		&& cd .. && rm -rf vim-v9.1.0044 
+
+zmq:
+	mkdir -p snapshots/zmq \
+		&& cd snapshots/zmq \
+		&& rm -rf * \
+		&& wget https://github.com/zeromq/libzmq/releases/download/v4.3.5/zeromq-4.3.5.tar.gz \
+		&& tar xfz zeromq-4.3.5.tar.gz \
+		&& cd zeromq-4.3.5 \
+		&& ./configure && make && sudo make install \
+		&& cd .. && rm -rf zeromq-4.3.5
 
 lua:
 	# From: https://blog.spreendigital.de/2020/05/24/how-to-compile-lua-5-4-0-for-linux-as-a-shared-library/
@@ -262,6 +271,14 @@ wc-category.lua:
 		&& cd category.lua/src \
 		&& sudo make install && make test
 
+wc-zmq.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf zmq.lua \
+		&& git clone git@github.com:massimo-nocentini/zmq.lua.git \
+		&& cd zmq.lua/src \
+		&& make && sudo make install && make test
+
 wc-operator.lua:
 	mkdir -p working-copies/luas \
 		&& cd working-copies/luas \
@@ -390,10 +407,10 @@ wc-concurrent.lua:
 
 ######################################################################################################
 
-working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua wc-pgsql.lua wc-wolfram.lua wc-datetimeformatter.lua wc-exactcover.lua wc-unittest.lua wc-concurrent.lua
+working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua wc-pgsql.lua wc-wolfram.lua wc-datetimeformatter.lua wc-exactcover.lua wc-unittest.lua wc-concurrent.lua wc-zmq.lua
 
 working-copies: wc-transcriptions wc-word2vec wc-non-layered-tidy-trees.c wc-pharo-vm wc-tree-sitter wc-timsort.c wc-fastText wc-datetimeformatter.c working-copies-lua
 
-snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor java eclipse-c eclipse-java virtualbox-deb rustdesk ruby
+snapshots: google-chrome python vim code lua texlive mypaint pgsql discord sgb wolfram tor java eclipse-c eclipse-java virtualbox-deb rustdesk ruby zmq
 
 all: system flatpak snapshots working-copies
