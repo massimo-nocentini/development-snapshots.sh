@@ -25,6 +25,14 @@ google-chrome:
 		&& wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
 		&& sudo apt install ./google-chrome-stable_current_amd64.deb 
 
+protobuf:
+	mkdir -p snapshots/protobuf
+	cd snapshots/protobuf \
+		&& rm -rf * \
+		&& wget https://github.com/protocolbuffers/protobuf/releases/download/v25.2/protoc-25.2-linux-x86_64.zip \
+		&& unzip protoc-25.2-linux-x86_64.zip \
+		&& sudo cp /bin/* /usr/local/bin/ && sudo cp -r include/* /usr/local/include/
+
 firefox:
 	mkdir -p snapshots/firefox
 	cd snapshots/firefox \
