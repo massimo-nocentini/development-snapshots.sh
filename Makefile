@@ -413,7 +413,25 @@ wc-concurrent.lua:
 		&& cd concurrent.lua/src \
 		&& make && sudo make install 
 
+wc-concurrent.scm:
+	mkdir -p working-copies/scm \
+		&& cd working-copies/scm \
+		&& rm -rf concurrent.scm \
+		&& git clone git@github.com:massimo-nocentini/concurrent.scm.git \
+		&& cd concurrent.scm/src \
+		&& make && sudo make install 
+
+wc-unittest.scm:
+	mkdir -p working-copies/scm \
+		&& cd working-copies/scm \
+		&& rm -rf unittest.scm \
+		&& git clone git@github.com:massimo-nocentini/unittest.scm.git \
+		&& cd unittest.scm/src \
+		&& make && sudo make install 
+
 ######################################################################################################
+
+working-copies-scm: wc-concurrent-scm
 
 working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua wc-pgsql.lua wc-wolfram.lua wc-datetimeformatter.lua wc-exactcover.lua wc-unittest.lua wc-concurrent.lua wc-zmq.lua
 
