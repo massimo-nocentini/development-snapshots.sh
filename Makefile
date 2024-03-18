@@ -429,9 +429,25 @@ wc-unittest.scm:
 		&& cd unittest.scm/src \
 		&& make && sudo make install 
 
+wc-aux.scm:
+	mkdir -p working-copies/scm \
+		&& cd working-copies/scm \
+		&& rm -rf aux.scm \
+		&& git clone git@github.com:massimo-nocentini/aux.scm.git \
+		&& cd aux.scm/src \
+		&& make && sudo make install 
+
+wc-fds.scm:
+	mkdir -p working-copies/scm \
+		&& cd working-copies/scm \
+		&& rm -rf fds.scm \
+		&& git clone git@github.com:massimo-nocentini/fds.scm.git \
+		&& cd fds.scm/src \
+		&& make && sudo make install 
+
 ######################################################################################################
 
-working-copies-scm: wc-concurrent-scm
+working-copies-scm: wc-concurrent.scm wc-unittest.scm wc-aux.scm wc-fds.scm
 
 working-copies-lua: wc-luaunit wc-json wc-category.lua wc-operator.lua wc-libc.lua wc-curl.lua wc-cairo.lua wc-lua.lua wc-timsort.lua wc-non-layered-tidy-trees.lua wc-tree-sitter.lua wc-stream.lua wc-pgsql.lua wc-wolfram.lua wc-datetimeformatter.lua wc-exactcover.lua wc-unittest.lua wc-concurrent.lua wc-zmq.lua
 
