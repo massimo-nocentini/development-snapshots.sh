@@ -136,13 +136,9 @@ sgb:
 		&& make tests && sudo make install && sudo make installdemos
 
 wolfram:
-	mkdir -p snapshots/wolfram \
-		&& cd snapshots/wolfram \
-		&& wget https://files.wolframcdn.com/WolframEngine/13.3.0.0/WolframEngine_13.3.0_LINUX.sh?4ae6ee529e4e0d5967853f9964b23dfeb8566c7eb008cacb70942b0d3beb0b48c271d2e5103bbc8690861f9e039c438b5db98d1a88b401b7fa624c40216e9804dbc221df024b70096b601d3d38b35c8917a1425d6ec28726c8f4bc875fc3d0f5af3feb990d \
-		&& sudo bash WolframEngine_13.3.0_LINUX.sh?4ae6ee529e4e0d5967853f9964b23dfeb8566c7eb008cacb70942b0d3beb0b48c271d2e5103bbc8690861f9e039c438b5db98d1a88b401b7fa624c40216e9804dbc221df024b70096b601d3d38b35c8917a1425d6ec28726c8f4bc875fc3d0f5af3feb990d
 	sudo rm -rf /usr/local/lib/libWSTP64i4.so
-	sudo ln -s /usr/local/Wolfram/WolframEngine/13.3/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/libWSTP64i4.so /usr/local/lib/libWSTP64i4.so
-	sudo ln -s /usr/local/Wolfram/WolframEngine/13.3/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/wstp.h /usr/local/include/wstp.h
+	sudo ln -s /usr/local/Wolfram/WolframEngine/14.0/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/libWSTP64i4.so /usr/local/lib/libWSTP64i4.so
+	sudo ln -s /usr/local/Wolfram/WolframEngine/14.0/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/wstp.h /usr/local/include/wstp.h
 	sudo ldconfig
 
 tor:
