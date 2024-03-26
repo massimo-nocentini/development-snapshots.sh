@@ -409,6 +409,12 @@ wc-concurrent.lua:
 		&& cd concurrent.lua/src \
 		&& make && sudo make install 
 
+wc-msys2-fetcher.lua:
+	mkdir -p working-copies/luas \
+		&& cd working-copies/luas \
+		&& rm -rf msys2-fetcher.lua \
+		&& git clone git@github.com:massimo-nocentini/msys2-fetcher.lua.git
+
 wc-concurrent.scm:
 	mkdir -p working-copies/scm \
 		&& cd working-copies/scm \
