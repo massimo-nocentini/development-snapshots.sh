@@ -253,6 +253,13 @@ wc-fastText:
 		&& mkdir build && cd build && cmake .. \
 		&& make && sudo make install
 
+wc-litebrowser-linux:
+	mkdir -p working-copies/ces \
+		&& cd working-copies/ces \
+		&& rm -rf litebrowser-linux \
+		&& git clone --recursive git@github.com:litehtml/litebrowser-linux.git \
+		&& cd litebrowser-linux && mkdir build && cd build && cmake .. && make
+
 wc-luaunit:
 	mkdir -p working-copies/luas \
 		&& cd working-copies/luas \
