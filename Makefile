@@ -50,11 +50,10 @@ python:
 	sudo apt build-dep python3.12
 	mkdir -p snapshots/python \
 		&& cd snapshots/python \
-		&& wget https://www.python.org/ftp/python/3.12.1/Python-3.12.1.tar.xz \
-		&& tar xfJ Python-3.12.1.tar.xz \
-		&& cd Python-3.12.1 \
+		&& wget https://www.python.org/ftp/python/3.12.3/Python-3.12.3.tar.xz \
+		&& tar xfJ Python-3.12.3.tar.xz \
+		&& cd Python-3.12.3 \
 		&& ./configure --enable-optimizations --with-ensurepip && make -j4 && sudo make install
-		#&& cd .. && sudo rm -rf Python-3.11.4
 
 ruby:
 	sudo apt build-dep ruby3.1
@@ -235,6 +234,11 @@ wc-tree-sitter:
 		&& git clone git@github.com:tree-sitter/tree-sitter.git \
 		&& cd tree-sitter \
 		&& make && sudo make install
+	# The following is run in the `tree-sitter-c` repo directory
+	# sudo mkdir -p /usr/local/share/tree-sitter/query
+	# sudo cp -r queries/ /usr/local/share/tree-sitter/query/
+	# sudo mv /usr/local/share/tree-sitter/query/queries/ /usr/local/share/tree-sitter/query/c
+
 
 wc-timsort.c:
 	mkdir -p working-copies/ces \
