@@ -228,17 +228,48 @@ wc-pharo-vm:
 	rm -rf working-copies/ces/build working-copies/ces/pharo-vm-build
 
 wc-tree-sitter:
+	rm -rf snapshots/node && mkdir -p snapshots/node
+	cd snapshots/node \
+		&& wget https://github.com/massimo-nocentini/ci.github/releases/latest/download/ubuntu-node-v22.1.0.zip \
+		&& unzip ubuntu-node-v22.1.0.zip \
+		&& sudo cp bin/* /usr/local/bin/ \
+		&& sudo cp -r include/node /usr/local/include/ \
+		&& sudo cp -r lib/* /usr/local/lib/ \
+		&& sudo cp -r share/doc/node /usr/local/share/doc \
+		&& sudo cp -r share/man/man1/* /usr/local/share/man/man1 \
+		&& sudo ldconfig # to refresh the references to libnode.so.127
 	mkdir -p working-copies/ces \
 		&& cd working-copies/ces \
-		&& rm -rf tree-sitter \
+		&& rm -rf tree-sitter* \
 		&& git clone git@github.com:tree-sitter/tree-sitter.git \
 		&& cd tree-sitter \
-		&& make && sudo make install
-	# The following is run in the `tree-sitter-c` repo directory
-	# sudo mkdir -p /usr/local/share/tree-sitter/query
-	# sudo cp -r queries/ /usr/local/share/tree-sitter/query/
-	# sudo mv /usr/local/share/tree-sitter/query/queries/ /usr/local/share/tree-sitter/query/c
-
+		&& make && sudo make install \
+		&& cd .. \
+		&& wget https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz --no-verbose \
+		&& gunzip -d -k -r -v tree-sitter-linux-x64 \
+		&& chmod +x tree-sitter-linux-x64 \
+		&& sudo cp tree-sitter-linux-x64 /usr/local/bin/tree-sitter \
+		&& git clone --depth 1 https://github.com/tree-sitter/tree-sitter-c.git \
+		&& cd tree-sitter-c && tree-sitter generate && make && sudo make install && cd ../ \
+		&& git clone --depth 1 https://github.com/tree-sitter/tree-sitter-json.git \
+		&& cd tree-sitter-json && tree-sitter generate && make && sudo make install && cd ../ \
+		&& git clone --depth 1 https://github.com/tree-sitter/tree-sitter-javascript.git \
+		&& cd tree-sitter-javascript && tree-sitter generate && make && sudo make install && cd ../ \
+		&& git clone --depth 1 https://github.com/tree-sitter/tree-sitter-python.git \
+		&& cd tree-sitter-python && tree-sitter generate && make && sudo make install && cd ../ \
+		&& sudo mkdir -p /usr/local/share/tree-sitter/language/c \
+		&& sudo mkdir -p /usr/local/share/tree-sitter/language/json \
+		&& sudo mkdir -p /usr/local/share/tree-sitter/language/javascript \
+		&& sudo mkdir -p /usr/local/share/tree-sitter/language/python \
+		&& sudo cp tree-sitter-c/grammar.js /usr/local/share/tree-sitter/language/c/ \
+		&& sudo cp -r tree-sitter-c/queries /usr/local/share/tree-sitter/language/c/ \
+		&& sudo cp tree-sitter-json/grammar.js /usr/local/share/tree-sitter/language/json/ \
+		&& sudo cp -r tree-sitter-json/queries /usr/local/share/tree-sitter/language/json/ \
+		&& sudo cp tree-sitter-javascript/grammar.js /usr/local/share/tree-sitter/language/javascript/ \
+		&& sudo cp -r tree-sitter-javascript/queries /usr/local/share/tree-sitter/language/javascript/ \
+		&& sudo cp -r tree-sitter-python/grammar.js /usr/local/share/tree-sitter/language/python/ \
+		&& sudo cp -r tree-sitter-python/queries /usr/local/share/tree-sitter/language/python/ \
+		&& echo "tree-sitter: Done."
 
 wc-timsort.c:
 	mkdir -p working-copies/ces \
