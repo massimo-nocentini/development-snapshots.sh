@@ -102,7 +102,7 @@ lua:
 		&& rm -rf lua* && wget https://www.lua.org/ftp/lua-5.4.6.tar.gz \
 		&& tar xfz lua-5.4.6.tar.gz \
 		&& cd lua-5.4.6 \
-		&& make "MYCFLAGS=-fPIC" "R=5.4.6" linux-readline && sudo make install
+		&& make MYCFLAGS=-fPIC CC=clang linux-readline && sudo make install
 
 today := `date +'%Y%m%d'`
 
