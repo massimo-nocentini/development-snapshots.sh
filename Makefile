@@ -13,7 +13,7 @@ system:
 		libpango-1.0-0 libpangocairo-1.0-0 libpango1.0-dev fontconfig libfontconfig-dev libglib2.0-0 \
 		synaptic libfuse2 libstdc++-12-dev gcc-12-x86-64-linux-gnux32 flatpak piper \
 		curl libcurl4 libcurl4-gnutls-dev filezilla gedit libpoppler-dev libpoppler-glib-dev gnome-tweaks \
-		libcrypto++8 libgit2-glib-1.0-dev librsvg2-dev libgtk-4-dev gnome-boxes vim clang texlive-full
+		libcrypto++8 libgit2-glib-1.0-dev librsvg2-dev libgtk-4-dev gnome-boxes vim clang texlive-full fzf tree
 
 docker:
 	bash docker.sh
@@ -198,6 +198,15 @@ emacs:
 		&& wget https://ftp.gnu.org/gnu/emacs/emacs-29.2.tar.xz \
 		&& tar xfJ emacs-29.2.tar.xz && cd emacs-29.2 \
 		&& ./configure && make && sudo make install
+
+ghostty:
+	cd working-copies/zig/ghostty && \
+	       git pull && \
+               make clean && \
+	       rm -rf .zig-cache && \
+	       zig build -Doptimize=ReleaseFast && \
+	       rm -rf ../../../snapshots/ghostty && \
+	       mv zig-out ../../../snapshots/ghostty
 
 ######################################################################################################
 # Working copies
