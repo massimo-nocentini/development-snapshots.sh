@@ -205,8 +205,7 @@ ghostty:
                make clean && \
 	       rm -rf .zig-cache && \
 	       zig build -Doptimize=ReleaseFast && \
-	       rm -rf ../../../snapshots/ghostty && \
-	       mv zig-out ../../../snapshots/ghostty
+	       sudo rsync -av ./zig-out/bin/ /usr/local/bin/ && sudo rsync -av ./zig-out/share/ /usr/local/share/
 
 ######################################################################################################
 # Working copies
