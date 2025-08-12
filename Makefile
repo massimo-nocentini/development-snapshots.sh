@@ -207,6 +207,14 @@ ghostty:
 	       zig build -Doptimize=ReleaseFast && \
 	       sudo rsync -av ./zig-out/bin/ /usr/local/bin/ && sudo rsync -av ./zig-out/share/ /usr/local/share/
 
+zig:
+	cd snapshots/zig \
+		&& rm -rf * \
+		&& wget https://ziglang.org/download/0.14.1/zig-x86_64-linux-0.14.1.tar.xz \
+		&& tar xf zig-x86_64-linux-0.14.1.tar.xz \
+		&& sudo cp zig-x86_64-linux-0.14.1/zig /usr/local/bin/zig \
+		&& sudo cp -r zig-x86_64-linux-0.14.1/lib /usr/local/lib/zig
+		
 ######################################################################################################
 # Working copies
 ######################################################################################################
