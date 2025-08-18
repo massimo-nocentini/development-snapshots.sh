@@ -13,10 +13,17 @@ system:
 		libpango-1.0-0 libpangocairo-1.0-0 libpango1.0-dev fontconfig libfontconfig-dev libglib2.0-0 \
 		synaptic libfuse2 libstdc++-12-dev gcc-12-x86-64-linux-gnux32 flatpak piper \
 		curl libcurl4 libcurl4-gnutls-dev filezilla gedit libpoppler-dev libpoppler-glib-dev gnome-tweaks \
-		libcrypto++8 libgit2-glib-1.0-dev librsvg2-dev libgtk-4-dev gnome-boxes vim clang texlive-full fzf tree
+		libcrypto++8 libgit2-glib-1.0-dev librsvg2-dev libgtk-4-dev gnome-boxes vim clang texlive-full fzf tree \
+		zsh zsh-syntax-highlighting blueprint-compiler libgtk4-layer-shell-dev rsync libadwaita-1-dev
 
-docker:
-	bash docker.sh
+zsh:
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+rust:
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+docker-debian:
+	bash docker-debian.sh
 
 nodejs:
 	bash node.sh
@@ -59,12 +66,12 @@ code:
 		&& sudo apt install ./code_1.79.2-1686734195_amd64.deb
 
 python:
-	sudo apt build-dep python3.12
+	sudo apt build-dep python3.13
 	mkdir -p snapshots/python \
 		&& cd snapshots/python \
-		&& wget https://www.python.org/ftp/python/3.12.3/Python-3.12.3.tar.xz \
-		&& tar xfJ Python-3.12.3.tar.xz \
-		&& cd Python-3.12.3 \
+		&& wget https://www.python.org/ftp/python/3.13.7/Python-3.13.7.tar.xz \
+		&& tar xfJ Python-3.13.7.tar.xz \
+		&& cd Python-3.13.7 \
 		&& ./configure --enable-optimizations --with-ensurepip && make -j4 && sudo make install
 
 ruby:
@@ -99,9 +106,9 @@ lua:
 	# From: https://blog.spreendigital.de/2020/05/24/how-to-compile-lua-5-4-0-for-linux-as-a-shared-library/
 	mkdir -p snapshots/lua \
 		&& cd snapshots/lua \
-		&& rm -rf lua* && wget https://www.lua.org/ftp/lua-5.4.6.tar.gz \
-		&& tar xfz lua-5.4.6.tar.gz \
-		&& cd lua-5.4.6 \
+		&& rm -rf lua* && wget https://www.lua.org/ftp/lua-5.4.8.tar.gz \
+		&& tar xfz lua-5.4.8.tar.gz \
+		&& cd lua-5.4.8 \
 		&& make MYCFLAGS=-fPIC CC=clang linux-readline && sudo make install
 
 today := `date +'%Y%m%d'`
@@ -205,7 +212,9 @@ ghostty:
                make clean && \
 	       rm -rf .zig-cache && \
 	       zig build -Doptimize=ReleaseFast && \
-	       sudo rsync -av ./zig-out/bin/ /usr/local/bin/ && sudo rsync -av ./zig-out/share/ /usr/local/share/
+	       sudo rsync -av ./zig-out/bin/ /usr/local/bin/ && sudo rsync -av ./zig-out/share/ /usr/local/share/ &&\
+	       sudo ldconfig
+		
 
 zig:
 	cd snapshots/zig \
@@ -213,7 +222,8 @@ zig:
 		&& wget https://ziglang.org/download/0.14.1/zig-x86_64-linux-0.14.1.tar.xz \
 		&& tar xf zig-x86_64-linux-0.14.1.tar.xz \
 		&& sudo cp zig-x86_64-linux-0.14.1/zig /usr/local/bin/zig \
-		&& sudo cp -r zig-x86_64-linux-0.14.1/lib /usr/local/lib/zig
+		&& sudo cp -r zig-x86_64-linux-0.14.1/lib /usr/local/lib/zig \
+		&& sudo ldconfig
 		
 ######################################################################################################
 # Working copies
