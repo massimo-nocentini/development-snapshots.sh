@@ -154,9 +154,9 @@ sgb:
 		&& make tests && sudo make install && sudo make installdemos
 
 wolfram:
-	sudo rm -rf /usr/local/lib/libWSTP64i4.so
-	sudo ln -s /usr/local/Wolfram/WolframEngine/14.0/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/libWSTP64i4.so /usr/local/lib/libWSTP64i4.so
-	sudo ln -s /usr/local/Wolfram/WolframEngine/14.0/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/wstp.h /usr/local/include/wstp.h
+	sudo rm -rf /usr/local/lib/libWSTP64i4.so /usr/local/include/wstp.h
+	sudo ln -s /usr/local/Wolfram/WolframEngine/14.2/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/libWSTP64i4.so /usr/local/lib/libWSTP64i4.so
+	sudo ln -s /usr/local/Wolfram/WolframEngine/14.2/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/wstp.h /usr/local/include/wstp.h
 	sudo ldconfig
 
 tor:
@@ -194,8 +194,8 @@ virtualbox-deb:
 rustdesk:
 	mkdir -p snapshots/rustdesk \
 		&& cd snapshots/rustdesk \
-		&& wget https://github.com/rustdesk/rustdesk/releases/download/1.2.2/rustdesk-1.2.2-x86_64.deb \
-		&& sudo apt install ./rustdesk-1.2.2-x86_64.deb
+		&& wget https://github.com/rustdesk/rustdesk/releases/download/1.4.1/rustdesk-1.4.1-x86_64.deb \
+		&& sudo apt install ./rustdesk-1.4.1-x86_64.deb
 
 emacs:
 	sudo apt build-dep emacs
