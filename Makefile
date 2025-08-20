@@ -84,13 +84,7 @@ ruby:
 		&& ./configure && make -j4 && sudo make install
 
 vim:
-	mkdir -p snapshots/vim \
-		&& cd snapshots/vim \
-		&& wget https://github.com/vim/vim/archive/refs/tags/v9.1.0044.tar.gz \
-		&& tar xfz v9.1.0044.tar.gz \
-		&& cd vim-9.1.0044 \
-		&& ./configure && make && sudo make install \
-		&& cd .. && rm -rf vim-v9.1.0044 
+	cd working-copies/ces/vim && make clean && CC=clang ./configure && make && sudo make install && make clean
 
 zmq:
 	mkdir -p snapshots/zmq \
