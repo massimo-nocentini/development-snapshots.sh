@@ -53,10 +53,7 @@ protobuf:
 		&& sudo cp /bin/* /usr/local/bin/ && sudo cp -r include/* /usr/local/include/
 
 firefox:
-	mkdir -p snapshots/firefox
-	cd snapshots/firefox \
-		&& wget https://download-installer.cdn.mozilla.net/pub/firefox/releases/117.0.1/linux-x86_64/en-US/firefox-117.0.1.tar.bz2 \
-		&& tar xfj firefox-117.0.1.tar.bz2
+	sh mozilla-firefox.sh
 
 code:
 	mkdir -p snapshots/code
