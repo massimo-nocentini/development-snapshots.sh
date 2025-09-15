@@ -145,9 +145,10 @@ sgb:
 		&& make tests && sudo make install && sudo make installdemos
 
 wolfram:
+	# https://files.wolframcdn.com/WolframEngine/14.3.0.0/WolframEngine_14.3.0_LIN.sh?4ae6ee529e4e0d5967853e906cb23dfea4455a532e3a25e0d5e5c9b62d58db4c27a660dfd717c370906b19e48c2f24b5744143998ff8f79aa6369801c8099889435310007bbe375f45a2c248948d08dcc50f3a36eb7090a00f6829c89e9ff7826b9226
 	sudo rm -rf /usr/local/lib/libWSTP64i4.so /usr/local/include/wstp.h
-	sudo ln -s /usr/local/Wolfram/WolframEngine/14.2/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/libWSTP64i4.so /usr/local/lib/libWSTP64i4.so
-	sudo ln -s /usr/local/Wolfram/WolframEngine/14.2/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/wstp.h /usr/local/include/wstp.h
+	sudo ln -s /usr/local/Wolfram/WolframEngine/14.3/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/libWSTP64i4.so /usr/local/lib/libWSTP64i4.so
+	sudo ln -s /usr/local/Wolfram/WolframEngine/14.3/SystemFiles/Links/WSTP/DeveloperKit/Linux-x86-64/CompilerAdditions/wstp.h /usr/local/include/wstp.h
 	sudo ldconfig
 
 tor:
@@ -206,6 +207,8 @@ ghostty:
 	       sudo rsync -av ./zig-out/bin/ /usr/local/bin/ && sudo rsync -av ./zig-out/share/ /usr/local/share/ &&\
 	       sudo ldconfig
 		
+nordvpn: 
+	curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh | sh
 
 zig:
 	cd snapshots/zig \
