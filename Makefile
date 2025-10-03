@@ -6,6 +6,11 @@
 safe:
 	echo "Safe rule to avoid unwanted compilations"
 
+exchange-fn-mac-keyboards:
+	sudo bash -c "echo 2 > /sys/module/hid_apple/parameters/fnmode"
+	echo options hid_apple fnmode=2 | sudo tee -a /etc/modprobe.d/hid_apple.conf
+	sudo update-initramfs -u -k all
+
 system:
 	sudo apt update
 	sudo apt upgrade
