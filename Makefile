@@ -220,6 +220,11 @@ zig:
 		#&& sudo cp zig-x86_64-linux-0.15.1/zig /usr/local/bin/zig \
 		#&& sudo cp -r zig-x86_64-linux-0.15.1/lib /usr/local/lib/zig \
 		#&& sudo ldconfig
+
+balena-etcher:
+	cd snapshots/balena-etcher && rm -rf * && \
+		wget https://github.com/balena-io/etcher/releases/download/v2.1.4/balenaEtcher-linux-x64-2.1.4.zip && \
+		unzip balenaEtcher-linux-x64-2.1.4.zip
 		
 ######################################################################################################
 # Working copies
