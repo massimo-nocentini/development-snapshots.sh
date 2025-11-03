@@ -215,8 +215,8 @@ nordvpn:
 zig:
 	cd snapshots/zig \
 		&& rm -rf * \
-		&& wget --no-verbose https://ziglang.org/download/0.15.1/zig-x86_64-linux-0.15.1.tar.xz \
-		&& tar xf zig-x86_64-linux-0.15.1.tar.xz #\
+		&& wget --no-verbose https://ziglang.org/download/0.15.2/zig-x86_64-linux-0.15.2.tar.xz \
+		&& tar xf zig-x86_64-linux-0.15.2.tar.xz #\
 		#&& sudo cp zig-x86_64-linux-0.15.1/zig /usr/local/bin/zig \
 		#&& sudo cp -r zig-x86_64-linux-0.15.1/lib /usr/local/lib/zig \
 		#&& sudo ldconfig
